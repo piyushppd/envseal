@@ -1,0 +1,44 @@
+[project]
+name = "envseal"
+version = "0.0.1"
+description = "Misuse-resistant envelope encryption: seal(plaintext, context) / unseal(blob, context), with no algorithm, nonce or key arguments to get wrong."
+readme = "README.md"
+license = "Apache-2.0"
+authors = [{ name = "Piyush Deshmukh" }]
+requires-python = ">=3.11"
+dependencies = ["cryptography>=43"]
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Intended Audience :: Developers",
+    "Topic :: Security :: Cryptography",
+    "Typing :: Typed",
+]
+
+[project.urls]
+Repository = "https://github.com/piyushppd/envseal"
+
+[dependency-groups]
+dev = ["pytest>=8", "pytest-cov>=5", "ruff>=0.6", "mypy>=1.11", "pip-audit>=2.7"]
+
+[build-system]
+requires = ["uv_build>=0.8,<0.12"]
+build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "SIM", "RUF", "PT"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101"]
+
+[tool.mypy]
+strict = true
+python_version = "3.11"
+files = ["src", "tests"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers --cov=envseal --cov-report=term-missing"
